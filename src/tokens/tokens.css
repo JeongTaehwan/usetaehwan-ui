@@ -1,0 +1,100 @@
+/* ─────────────────────────────────────────────────────────────
+   다크모드 변형 등록 (Tailwind v4)
+   `.dark` 클래스가 붙은 요소와 그 하위에서 `dark:` 유틸리티가 켜진다.
+   ───────────────────────────────────────────────────────────── */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* ── Color · Surfaces ── */
+  --color-bg: #FDFBF7;
+  --color-surface: #EBE7DC;
+  --color-border: #C9C3B4;
+
+  /* ── Color · Text ── */
+  --color-fg: #33302A;
+  --color-fg-body: #736E62;
+  --color-fg-muted: #8A8577;
+
+  /* ── Color · Brand (faded brick) ── */
+  --color-brand: #A55E45;
+  --color-brand-hover: #8F4E38;
+  --color-brand-subtle: #E5CFC5;
+  --color-on-brand: #FDFBF7; /* brand/danger 채움 위에 얹는 글자색 */
+
+  /* ── Color · Status (desaturated, warm) ── */
+  --color-success: #6E7B53;
+  --color-warning: #B98C4A;
+  --color-danger: #A8443E;
+
+  /* ── Typography ── */
+  --font-sans: var(--font-hanken), "Pretendard Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-instrument), ui-serif, Georgia, serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+
+  --default-font-family: var(--font-sans);
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.375rem;
+  --text-2xl: 1.75rem;
+  --text-3xl: 2.25rem;
+  --text-4xl: 3rem;
+
+  --leading-tight: 1.2;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.7;
+
+  /* ── Spacing · 4px grid ── */
+  --spacing: 0.25rem;
+
+  /* ── Radius ── */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  /* ── Shadow · warm-tinted, subtle ── */
+  --shadow-sm: 0 1px 2px rgba(51, 48, 42, 0.05);
+  --shadow-md: 0 2px 8px rgba(51, 48, 42, 0.08);
+  --shadow-lg: 0 10px 30px rgba(51, 48, 42, 0.10);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   라이트/다크 color-scheme 힌트 (기본 폼 컨트롤·스크롤바 색 대응)
+   ───────────────────────────────────────────────────────────── */
+:root {
+  color-scheme: light;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   다크모드 토큰 오버라이드
+   순검정 금지 — 웜 브라운 그레이 베이스. 유틸리티는 var()를 참조하므로
+   여기서 --color-* 값만 바꾸면 bg-bg / text-fg 등이 그대로 따라온다.
+   ───────────────────────────────────────────────────────────── */
+.dark {
+  color-scheme: dark;
+
+  --color-bg: #201D19;
+  --color-surface: #2B2722;
+  --color-border: #423C33;
+
+  --color-fg: #F1ECE1;
+  --color-fg-body: #B7AF9F;
+  --color-fg-muted: #8F897B;
+
+  --color-brand: #C67A5F;
+  --color-brand-hover: #D68E73;
+  --color-brand-subtle: #3A2A20;
+  --color-on-brand: #201D19;
+
+  --color-success: #93A06F;
+  --color-warning: #D2A868;
+  --color-danger: #D4837B;
+
+  /* 다크에서는 그림자를 검게 눌러 대비를 준다 */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.30);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
