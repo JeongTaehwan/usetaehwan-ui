@@ -13,6 +13,8 @@ npm install @usetaehwan/ui
 ```tsx
 // 1. 토큰 CSS 임포트 (globals.css 등)
 import "@usetaehwan/ui/tokens.css";
+// 1-1. 애니메이션이 필요한 컴포넌트(OrbitLoader, EmptyState)를 쓸 때만
+import "@usetaehwan/ui/styles.css";
 
 // 2. 컴포넌트 사용
 import { Button, Card, Badge } from "@usetaehwan/ui";
@@ -28,6 +30,10 @@ import { Button, Card, Badge } from "@usetaehwan/ui";
 - `Badge` — neutral / brand
 - `Typography` — Heading, Text
 - `Container` — 레이아웃 래퍼
+- `Modal` — 포털 기반 중앙 모달 (md / lg / xl, reduced-motion 대응)
+- `ProgressBar` — 0~100 진행도 바 (ARIA progressbar)
+- `OrbitLoader` — 궤도형 로딩 스피너 · `styles.css` 필요
+- `EmptyState` — 빈 상태 안내 (아이콘/제목/설명/액션) · `styles.css` 필요
 
 ## 설계 원칙
 

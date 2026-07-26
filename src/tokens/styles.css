@@ -1,0 +1,110 @@
+/**
+ * @usetaehwan/ui — 컴포넌트 런타임 스타일.
+ *
+ * 토큰 유틸리티(Tailwind)로 표현할 수 없는 keyframe/의사요소 기반 연출만 담는다.
+ * 색은 전부 토큰(var(--color-*)) 참조 → tokens.css 가 함께 로드되어야 한다.
+ *
+ * 사용처: OrbitLoader, EmptyState.
+ * 소비 측 globals.css 등에서 `@import "@usetaehwan/ui/styles.css";` 로 로드.
+ */
+
+/* ── OrbitLoader: 중심을 도는 위성 ── */
+.usui-loader {
+  position: relative;
+  display: inline-block;
+  width: var(--size, 40px);
+  height: var(--size, 40px);
+}
+.usui-loader__ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--color-brand) 22%, transparent);
+}
+.usui-loader__core {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 20%;
+  height: 20%;
+  border-radius: 50%;
+  background: var(--color-brand-hover);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--color-brand) 60%, transparent);
+}
+.usui-loader__spin {
+  position: absolute;
+  inset: 0;
+  animation: usui-loader-spin 0.9s linear infinite;
+}
+.usui-loader__sat {
+  position: absolute;
+  top: -3px;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  margin-left: -3px;
+  border-radius: 50%;
+  background: var(--color-brand);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--color-brand) 70%, transparent);
+}
+@keyframes usui-loader-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ── EmptyState: 은은한 후광(홀로 빛나는 느낌) ── */
+.usui-empty-orb {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+.usui-empty-orb::before {
+  content: "";
+  position: absolute;
+  inset: -60%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--color-brand) 22%, transparent) 0%,
+    transparent 60%
+  );
+  animation: usui-empty-breathe 4.5s ease-in-out infinite;
+}
+@keyframes usui-empty-breathe {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.08);
+  }
+}
+
+/* ── 부드러운 등장 페이드 ── */
+.usui-fade {
+  animation: usui-fade 0.2s ease both;
+}
+@keyframes usui-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ── 모션 최소화: 회전·후광 숨쉬기·등장 모두 정지 ── */
+@media (prefers-reduced-motion: reduce) {
+  .usui-loader__spin,
+  .usui-empty-orb::before {
+    animation: none !important;
+  }
+  .usui-fade {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+  }
+}
