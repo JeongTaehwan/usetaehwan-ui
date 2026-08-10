@@ -24,6 +24,9 @@
   "files": [
     "dist"
   ],
+  "workspaces": [
+    "demo"
+  ],
   "sideEffects": [
     "**/*.css"
   ],
@@ -31,6 +34,8 @@
     "build": "tsup && tsc -p tsconfig.build.json && cp src/tokens/tokens.css dist/tokens.css && cp src/tokens/styles.css dist/styles.css",
     "test": "vitest run",
     "test:watch": "vitest",
+    "demo:dev": "npm run build && npm --workspace demo run dev",
+    "demo:build": "npm run build && npm --workspace demo run build",
     "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
