@@ -1,0 +1,18 @@
+@import "tailwindcss";
+@import "../src/tokens/tokens.css";
+@import "../src/tokens/styles.css";
+
+/* 테마 3종·폰트 변수는 데모와 같은 파일을 import — 구현 중복 금지 */
+@import "../demo/src/styles/themes.css";
+@import "../demo/src/styles/fonts.css";
+
+/*
+ * 스토리는 라이브러리 소스(src/components)를 직접 import 하고,
+ * src/ 는 gitignore 대상이 아니라 Tailwind 자동 콘텐츠 탐지에 잡힌다.
+ * 별도 @source 등록이 필요 없다.
+ */
+
+body {
+  background: var(--color-bg);
+  color: var(--color-fg-body);
+}
