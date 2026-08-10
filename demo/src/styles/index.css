@@ -2,22 +2,13 @@
 @import "@usetaehwan/ui/tokens.css";
 @import "@usetaehwan/ui/styles.css";
 @import "./themes.css";
+@import "./fonts.css";
 
 /*
  * 라이브러리 dist의 클래스 문자열을 Tailwind가 스캔하도록 등록.
  * (dist/ 는 .gitignore 대상이라 자동 콘텐츠 탐지에서 제외되기 때문)
  */
 @source "../../../dist";
-
-/*
- * tokens.css 의 폰트 스택(--font-sans 등)이 참조하는 소비측 폰트 변수.
- * Hanken Grotesk는 라틴 전용 → 한글은 스택의 다음 항목인 Pretendard가 받는다.
- */
-:root {
-  --font-instrument: "Instrument Serif";
-  --font-hanken: "Hanken Grotesk";
-  --font-jetbrains: "JetBrains Mono";
-}
 
 body {
   background: var(--color-bg);
