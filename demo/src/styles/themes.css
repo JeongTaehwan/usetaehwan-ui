@@ -1,0 +1,64 @@
+/*
+ * 데모 전용 테마 3종 — 토큰 오버라이드로만 무드를 교체한다.
+ *
+ * 기본(usetaehwan) 테마는 tokens.css 의 :root 값 그대로이며 여기서 건드리지 않는다.
+ * orbit / gak 은 시안(design/demo-reference.html)의 값을 그대로 옮긴 것.
+ * hex 리터럴은 데모 전체에서 이 파일에만 존재한다 — 마크업에서는 토큰 유틸리티만 쓴다.
+ *
+ * gak 은 시안대로 radius 도 오버라이드한다(각진 무드). 크기·배치 토큰은 건드리지
+ * 않으므로 테마 전환 시 레이아웃은 변하지 않는다.
+ */
+
+[data-theme="orbit"] {
+  color-scheme: dark;
+
+  --color-bg: #0a0d16;
+  --color-surface: #141a2a;
+  --color-border: #29344c;
+
+  --color-fg: #eaeef7;
+  --color-fg-body: #a6b0c6;
+  --color-fg-muted: #6a7488;
+
+  --color-brand: #5cc9d6;
+  --color-brand-hover: #82dee9;
+  --color-brand-subtle: #143039;
+  --color-on-brand: #0a0d16;
+
+  --color-success: #6fcf97;
+  --color-warning: #e0b15a;
+  --color-danger: #e07a6e;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 2px 10px rgba(0, 0, 0, 0.55);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.65);
+}
+
+[data-theme="gak"] {
+  color-scheme: dark;
+
+  --color-bg: #04060a;
+  --color-surface: #111722;
+  --color-border: #1f2937;
+
+  --color-fg: #eaf0f8;
+  --color-fg-body: #8b99ad;
+  --color-fg-muted: #55647a;
+
+  --color-brand: #c8ff1e;
+  --color-brand-hover: #e2ff66;
+  --color-brand-subtle: #1f2937;
+  --color-on-brand: #04060a;
+
+  --color-success: #2fd575;
+  --color-warning: #ffb020;
+  --color-danger: #ff4d5e;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 2px 10px rgba(0, 0, 0, 0.55);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.65);
+
+  --radius-sm: 3px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+}
