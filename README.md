@@ -2,6 +2,8 @@
 
 토큰 기반 React 디자인 시스템. 저채도 웜 뉴트럴 팔레트와 6개의 코어 프리미티브로 구성됩니다.
 
+**라이브 데모:** [ui.usetaehwan.page](https://ui.usetaehwan.page) — 10개 컴포넌트 전부를 조립한 데모. 상단 토글로 테마 3종(usetaehwan · orbit · gak)을 전환해볼 수 있습니다.
+
 ## 설치
 
 ```bash

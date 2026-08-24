@@ -3,6 +3,8 @@
 `@usetaehwan/ui` 컴포넌트만으로 조립한 데모 앱. `design/demo-reference.html` 시안을
 실제 패키지 컴포넌트와 토큰으로 재구현한 것이다.
 
+**라이브:** [ui.usetaehwan.page](https://ui.usetaehwan.page)
+
 ## 실행
 
 루트에서 (라이브러리 빌드 → 데모 순서가 강제된다):
