@@ -36,6 +36,8 @@
     "test:watch": "vitest",
     "demo:dev": "npm run build && npm --workspace demo run dev",
     "demo:build": "npm run build && npm --workspace demo run build",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
     "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
@@ -47,6 +49,10 @@
     "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
+    "@storybook/addon-docs": "^10.5.7",
+    "@storybook/addon-themes": "^10.5.7",
+    "@storybook/react-vite": "^10.5.7",
+    "@tailwindcss/vite": "^4.3.3",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
@@ -56,8 +62,11 @@
     "jsdom": "^29.1.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "storybook": "^10.5.7",
+    "tailwindcss": "^4.3.3",
     "tsup": "^8.3.0",
     "typescript": "^5.7.0",
+    "vite": "^8.2.1",
     "vitest": "^4.1.10"
   },
   "allowScripts": {

@@ -1,0 +1,11 @@
+/*
+ * tokens.css 의 폰트 스택(--font-sans 등)이 참조하는 소비측 폰트 변수.
+ * Hanken Grotesk는 라틴 전용 → 한글은 스택의 다음 항목인 Pretendard가 받는다.
+ *
+ * 데모(index.css)와 스토리북(.storybook/preview.css)이 같은 파일을 import 한다.
+ */
+:root {
+  --font-instrument: "Instrument Serif";
+  --font-hanken: "Hanken Grotesk";
+  --font-jetbrains: "JetBrains Mono";
+}

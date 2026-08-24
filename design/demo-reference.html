@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  html, body { margin:0; padding:0; }
+  body { background:#FDFBF7; }
+  a { color: var(--brand); text-decoration: none; }
+  a:hover { color: var(--brand-hover); }
+  [data-theme] {
+    --bg:#FDFBF7; --surface:#EBE7DC; --border:#C9C3B4;
+    --fg:#33302A; --fg-body:#736E62; --fg-muted:#8A8577;
+    --brand:#A55E45; --brand-hover:#8F4E38; --brand-subtle:#E5CFC5; --on-brand:#FDFBF7;
+    --success:#6E7B53; --warning:#B98C4A; --danger:#A8443E;
+    --shadow-sm:0 1px 2px rgba(51,48,42,.05);
+    --shadow-md:0 2px 8px rgba(51,48,42,.08);
+    --shadow-lg:0 10px 30px rgba(51,48,42,.10);
+    --field-bg:#FDFBF7;
+    --radius-sm:6px; --radius-md:10px; --radius-lg:16px;
+  }
+  [data-theme="orbit"] {
+    --bg:#0A0D16; --surface:#141A2A; --border:#29344C;
+    --fg:#EAEEF7; --fg-body:#A6B0C6; --fg-muted:#6A7488;
+    --brand:#5CC9D6; --brand-hover:#82DEE9; --brand-subtle:#143039; --on-brand:#0A0D16;
+    --success:#6FCF97; --warning:#E0B15A; --danger:#E07A6E;
+    --shadow-sm:0 1px 2px rgba(0,0,0,.5);
+    --shadow-md:0 2px 10px rgba(0,0,0,.55);
+    --shadow-lg:0 16px 40px rgba(0,0,0,.65);
+    --field-bg:#0A0D16;
+    --radius-sm:6px; --radius-md:10px; --radius-lg:16px;
+  }
+  [data-theme="gak"] {
+    --bg:#04060A; --surface:#111722; --border:#1F2937;
+    --fg:#EAF0F8; --fg-body:#8B99AD; --fg-muted:#55647A;
+    --brand:#C8FF1E; --brand-hover:#E2FF66; --brand-subtle:#1F2937; --on-brand:#04060A;
+    --success:#2FD575; --warning:#FFB020; --danger:#FF4D5E;
+    --shadow-sm:0 1px 2px rgba(0,0,0,.5);
+    --shadow-md:0 2px 10px rgba(0,0,0,.55);
+    --shadow-lg:0 16px 40px rgba(0,0,0,.65);
+    --field-bg:#0B0F16;
+    --radius-sm:3px; --radius-md:8px; --radius-lg:10px;
+  }
+  @keyframes usui-loader-spin { to { transform: rotate(360deg); } }
+  @keyframes usui-breathe { 0%,100% { opacity:.5; transform:scale(1); } 50% { opacity:.85; transform:scale(1.08); } }
+  @keyframes usui-fade { from { opacity:0 } to { opacity:1 } }
+</style>
+</helmet>
+
+<div data-theme="{{ theme }}" style="background:var(--bg); color:var(--fg-body); font-family:'Hanken Grotesk',Pretendard,system-ui,sans-serif; min-height:100vh; transition:background .25s ease, color .25s ease;">
+
+  <header style="position:sticky; top:0; z-index:30; background:color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter:blur(10px); border-bottom:1px solid var(--border);">
+    <div style="max-width:1152px; margin:0 auto; padding:0 24px; height:64px; display:flex; align-items:center; justify-content:space-between; gap:24px;">
+      <div style="display:flex; align-items:baseline; gap:12px;">
+        <span style="font-family:'Instrument Serif',Georgia,serif; font-size:20px; color:var(--fg); letter-spacing:-0.01em;">@usetaehwan/ui</span>
+        <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--fg-muted);">v0.1</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <span style="font-size:12px; color:var(--fg-muted);">테마</span>
+        <div style="display:flex; gap:4px; padding:4px; border:1px solid var(--border); border-radius:9999px; background:var(--surface);">
+          <sc-for list="{{ themes }}" as="t" hint-placeholder-count="3">
+            <button onClick="{{ t.pick }}" style="{{ t.style }}">{{ t.label }}</button>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section style="max-width:1152px; margin:0 auto; padding:96px 24px 72px;">
+    <div style="display:grid; grid-template-columns:1.15fr .85fr; gap:64px; align-items:end;">
+      <div>
+        <span style="display:inline-flex; align-items:center; border-radius:9999px; padding:2px 10px; font-size:12px; font-weight:500; background:var(--brand-subtle); color:var(--brand);">토큰 기반 React 디자인 시스템</span>
+        <h1 style="font-family:'Instrument Serif',Georgia,serif; font-weight:400; font-size:60px; line-height:1.1; letter-spacing:-0.02em; color:var(--fg); margin:20px 0 0;">@usetaehwan/ui</h1>
+        <p style="font-size:18px; line-height:1.7; color:var(--fg-body); max-width:38ch; margin:16px 0 0;">10개의 프리미티브로 화면을 구성하고, 토큰만 바꿔 무드를 교체한다.</p>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:16px; border:1px solid var(--border); border-radius:var(--radius-md); background:var(--surface); padding:14px 16px; box-shadow:var(--shadow-sm);">
+          <code style="font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--fg);"><span style="color:var(--fg-muted);">$</span> npm install @usetaehwan/ui</code>
+          <button onClick="{{ copyInstall }}" style="height:32px; padding:0 12px; border-radius:var(--radius-md); border:1px solid var(--border); background:transparent; color:var(--fg); font-family:'Hanken Grotesk',sans-serif; font-size:13px; font-weight:500; cursor:pointer;" style-hover="background:var(--brand-subtle);">{{ copyLabel }}</button>
+        </div>
+        <p style="font-size:12px; color:var(--fg-muted); margin:0;">Button · Input · Card · Badge · Typography · Container · Modal · ProgressBar · OrbitLoader · EmptyState</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="max-width:1152px; margin:0 auto; padding:0 24px 88px;">
+    <div style="display:flex; align-items:baseline; gap:12px; padding-bottom:20px; border-bottom:1px solid var(--border); margin-bottom:32px;">
+      <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--brand);">A</span>
+      <h2 style="font-family:'Instrument Serif',Georgia,serif; font-weight:400; font-size:32px; line-height:1.2; color:var(--fg); margin:0;">대시보드</h2>
+      <span style="font-size:13px; color:var(--fg-muted);">Card · Badge · ProgressBar · Typography</span>
+    </div>
+
+    <div style="display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:20px;">
+      <p style="font-size:14px; color:var(--fg-body); margin:0;">최근 30일 요약</p>
+      <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--fg-muted); border:1px dashed var(--border); border-radius:var(--radius-sm); padding:5px 10px;">[MISSING: Tabs] 기간 전환</span>
+    </div>
+
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px;">
+      <sc-for list="{{ metrics }}" as="m" hint-placeholder-count="4">
+        <div style="border:1px solid var(--border); border-radius:var(--radius-lg); background:var(--surface); padding:20px; box-shadow:var(--shadow-sm); display:flex; flex-direction:column; gap:10px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:8px;">
+            <span style="font-size:13px; color:var(--fg-muted);">{{ m.label }}</span>
+            <span style="{{ m.badgeStyle }}">{{ m.delta }}</span>
+          </div>
+          <span style="font-family:'Instrument Serif',Georgia,serif; font-size:36px; line-height:1.1; color:var(--fg);">{{ m.value }}</span>
+          <span style="font-size:12px; color:var(--fg-muted);">{{ m.note }}</span>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="display:grid; grid-template-columns:1.4fr 1fr; gap:16px; margin-top:16px;">
+      <div style="border:1px solid var(--border); border-radius:var(--radius-lg); background:var(--surface); padding:24px; box-shadow:var(--shadow-sm); display:flex; flex-direction:column; gap:22px;">
+        <div style="display:flex; align-items:center; justify-content:space-between;">
+          <h3 style="font-family:'Instrument Serif',Georgia,serif; font-weight:400; font-size:24px; color:var(--fg); margin:0;">진행 중인 작업</h3>
+          <span style="display:inline-flex; align-items:center; border-radius:9999px; padding:2px 10px; font-size:12px; font-weight:500; background:var(--surface); border:1px solid var(--border); color:var(--fg-body);">4건</span>
+        </div>
+        <sc-for list="{{ progress }}" as="p" hint-placeholder-count="4">
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <div style="display:flex; align-items:baseline; justify-content:space-between; gap:12px;">
+              <span style="font-size:14px; color:var(--fg);">{{ p.name }}</span>
+              <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--fg-muted);">{{ p.pct }}</span>
+            </div>
+            <div style="height:8px; width:100%; overflow:hidden; border-radius:9999px; background:var(--brand-subtle);">
+              <div style="{{ p.barStyle }}"></div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:16px;">
+        <div style="border:1px solid var(--border); border-radius:var(--radius-lg); background:var(--surface); padding:24px; box-shadow:var(--shadow-sm); display:flex; flex-direction:column; gap:14px;">
+          <h3 style="font-family:'Instrument Serif',Georgia,serif; font-weight:400; font-size:24px; color:var(--fg); margin:0;">상태</h3>
+          <div style="display:flex; flex-wrap:wrap; gap:8px;">
+            <span style="display:inline-flex; align-items:center; border-radius:9999px; padding:2px 10px; font-size:12px; font-weight:500; background:var(--brand-subtle); color:var(--brand);">운영 중</span>
+            <span style="display:inline-flex; align-items:center; border-radius:9999px; padding:2px 10px; font-size:12px; font-weight:500; background:var(--surface); border:1px solid var(--border); color:var(--fg-body);">검토 3건</span>
+            <span style="display:inline-flex; align-items:center; border-radius:9999px; padding:2px 10px; font-size:12px; font-weight:500; background:var(--surface); border:1px solid var(--border); color:var(--fg-body);">지연 1건</span>
+          </div>
+          <p style="font-size:14px; line-height:1.7; color:var(--fg-body); margin:0;">마지막 동기화 12분 전. 대기 중인 항목은 없다.</p>
+          <button onClick="{{ openDetail }}" style="height:40px; padding:0 16px; border-radius:var(--radius-md); border:none; background:var(--brand); color:var(--on-brand); font-family:'Hanken Grotesk',sans-serif; font-size:15px; font-weight:500; cursor:pointer; align-self:flex-start;" style-hover="background:var(--brand-hover);">자세히 보기</button>
+        </div>
+        <div style="border:1px dashed var(--border); border-radius:var(--radius-lg); padding:24px; display:flex; flex-direction:column; gap:6px; align-items:flex-start;">
+          <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--brand);">[MISSING: Table]</span>
+          <span style="font-size:13px; color:var(--fg-muted);">최근 활동 로그 — 정렬 가능한 표가 필요하다.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="max-width:1152px; margin:0 auto; padding:0 24px 88px;">
+    <div style="display:flex; align-items:baseline; gap:12px; padding-bottom:20px; border-bottom:1px solid var(--border); margin-bottom:32px;">
+      <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--brand);">B</span>
+      <h2 style="font-family:'Instrument Serif',Georgia,serif; font-weight:400; font-size:32px; line-height:1.2; color:var(--fg); margin:0;">목록과 상호작용</h2>
+      <span style="font-size:13px; color:var(--fg-muted);">Input · Card · Modal · EmptyState · OrbitLoader</span>
+    </div>
+
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px; align-items:start;">
+
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <div style="display:flex; align-items:center; justify-content:space-between;">
+          <span style="font-size:13px; font-weight:500; color:var(--fg);">데이터 있음</span>
+          <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--fg-muted);">live</span>
+        </div>
+        <div style="border:1px solid var(--border); border-radius:var(--radius-lg); background:var(--surface); padding:20px; box-shadow:var(--shadow-sm); display:flex; flex-direction:column; gap:14px; min-height:412px;">
+          <div style="display:flex; gap:8px;">
+            <input value="{{ query }}" onInput="{{ onQuery }}" placeholder="항목 검색" style="height:40px; width:100%; border-radius:var(--radius-md); border:1px solid var(--border); background:var(--field-bg); padding:0 12px; font-family:'Hanken Grotesk',sans-serif; font-size:15px; color:var(--fg); outline:none;" style-focus="border-color:var(--brand); box-shadow:0 0 0 3px color-mix(in srgb, var(--brand) 25%, transparent);">
+            <span style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--fg-muted); border:1px dashed var(--border); border-radius:var(--radius-sm); padding:0 8px; display:flex; align-items:center; white-space:nowrap;">[MISSING: Dropdown]</span>
+          </div>
+          <sc-for list="{{ filtered }}" as="it" hint-placeholder-count="4">
+            <div onClick="{{ it.open }}" style="border:1px solid var(--border); border-radius:var(--radius-md); background:var(--bg); padding:12px 14px; display:flex; align-items:center; gap:12px; cursor:pointer;" style-hover="border-color:var(--brand);">
+              <span style="font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--fg-muted); border:1px dashed var(--border); border-radius:9999px; width:32px; height:32px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">AV</span>
+              <span style="display:flex; flex-direction:column; gap:2px; flex:1; min-width:0;">
+                <span style="font-size:14px; color:var(--fg); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ it.title }}</span>
+                <span style="font-size:12px; color:var(--fg-muted);">{{ it.meta }}</span>
+              </span>
+              <span style="{{ it.badgeStyle }}">{{ it.status }}</span>
+            </div>
+          </sc-for>
+          <sc-if value="{{ isEmptyResult }}" hint-placeholder-val="{{ false }}">
+            <div style="animation:usui-fade .2s ease both; display:flex; flex-direction:column; align-items:center; gap:16px; text-align:center; padding:24px 0;">
+              <div style="position:relative; display:grid; place-items:center; height:64px; width:64px; border-radius:9999px; border:1px solid var(--border); color:var(--brand);">
+                <span style="position:absolute; inset:-60%; border-radius:50%; background:radial-gradient(circle, color-mix(in srgb, var(--brand) 22%, transparent) 0%, transparent 60%); animation:usui-breathe 4.5s ease-in-out infinite;"></span>
+                <span style="position:relative; font-size:24px;">◎</span>
+              </div>
+              <span style="font-size:15px; font-weight:500; color:var(--fg);">검색 결과 없음</span>
+              <span style="font-size:13px; color:var(--fg-muted);">다른 키워드로 다시 시도해 보세요.</span>
+            </div>
+          </sc-if>
+          <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--fg-muted); border-top:1px solid var(--border); padding-top:10px; margin-top:auto;">항목 클릭 → Modal</span>
+        </div>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <div style="display:flex; align-items:center; justify-content:space-between;">
+          <span style="font-size:13px; font-weight:500; color:var(--fg);">로딩 중</span>
+          <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--fg-muted);">OrbitLoader</span>
+        </div>
+        <div style="border:1px solid var(--border); border-radius:var(--radius-lg); background:var(--surface); padding:20px; box-shadow:var(--shadow-sm); display:flex; flex-direction:column; gap:14px; min-height:412px;">
+          <div style="height:40px; border-radius:var(--radius-md); border:1px solid var(--border); background:var(--field-bg); display:flex; align-items:center; padding:0 12px; font-size:15px; color:var(--fg-muted);">항목 검색</div>
+          <div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px;">
+            <span style="position:relative; display:inline-block; width:44px; height:44px;">
+              <span style="position:absolute; inset:0; border-radius:50%; border:1px solid color-mix(in srgb, var(--brand) 22%, transparent);"></span>
+              <span style="position:absolute; inset:0; margin:auto; width:20%; height:20%; border-radius:50%; background:var(--brand-hover); box-shadow:0 0 8px color-mix(in srgb, var(--brand) 60%, transparent);"></span>
+              <span style="position:absolute; inset:0; animation:usui-loader-spin .9s linear infinite;">
+                <span style="position:absolute; top:-3px; left:50%; width:6px; height:6px; margin-left:-3px; border-radius:50%; background:var(--brand); box-shadow:0 0 8px color-mix(in srgb, var(--brand) 70%, transparent);"></span>
+              </span>
+            </span>
+            <span style="font-size:14px; color:var(--fg-muted);">불러오는 중</span>
+          </div>
+          <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--fg-muted); border-top:1px solid var(--border); padding-top:10px;">스켈레톤 대신 궤도 로더</span>
+        </div>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <div style="display:flex; align-items:center; justify-content:space-between;">
+          <span style="font-size:13px; font-weight:500; color:var(--fg);">비어 있음</span>
+          <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--fg-muted);">EmptyState</span>
+        </div>
+        <div style="border:1px solid var(--border); border-radius:var(--radius-lg); background:var(--surface); padding:20px; box-shadow:var(--shadow-sm); display:flex; flex-direction:column; gap:14px; min-height:412px;">
+          <div style="height:40px; border-radius:var(--radius-md); border:1px solid var(--border); background:var(--field-bg); display:flex; align-items:center; padding:0 12px; font-size:15px; color:var(--fg-muted);">항목 검색</div>
+          <div style="flex:1; display:flex; align-items:center; justify-content:center;">
+            <div style="animation:usui-fade .2s ease both; display:flex; flex-direction:column; align-items:center; gap:16px; text-align:center;">
+              <div style="position:relative; display:grid; place-items:center; height:80px; width:80px; border-radius:9999px; border:1px solid var(--border); color:var(--brand);">
+                <span style="position:absolute; inset:-60%; border-radius:50%; background:radial-gradient(circle, color-mix(in srgb, var(--brand) 22%, transparent) 0%, transparent 60%); animation:usui-breathe 4.5s ease-in-out infinite;"></span>
+                <span style="position:relative; font-size:30px;">◎</span>
+              </div>
+              <div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+                <span style="font-size:18px; font-weight:500; color:var(--fg);">아직 항목이 없습니다</span>
+                <span style="font-size:13px; color:var(--fg-muted); max-width:28ch; line-height:1.6;">첫 항목을 만들면 여기에 표시됩니다.</span>
+              </div>
+              <button style="height:40px; padding:0 16px; border-radius:var(--radius-md); border:none; background:var(--brand); color:var(--on-brand); font-family:'Hanken Grotesk',sans-serif; font-size:15px; font-weight:500; cursor:pointer;" style-hover="background:var(--brand-hover);">항목 만들기</button>
+            </div>
+          </div>
+          <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--fg-muted); border-top:1px solid var(--border); padding-top:10px;">동일 레이아웃, 상태만 교체</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="max-width:1152px; margin:0 auto; padding:0 24px 88px;">
+    <div style="display:flex; align-items:baseline; gap:12px; padding-bottom:20px; border-bottom:1px solid var(--border); margin-bottom:32px;">
+      <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--brand);">C</span>
+      <h2 style="font-family:'Instrument Serif',Georgia,serif; font-weight:400; font-size:32px; line-height:1.2; color:var(--fg); margin:0;">컴포넌트 상태</h2>
+    </div>
+
+    <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:16px;">
+      <div style="border:1px solid var(--border); border-radius:var(--radius-lg); background:var(--surface); padding:24px; display:flex; flex-direction:column; gap:18px;">
+        <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--fg-muted);">Button</span>
+        <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+          <button style="height:40px; padding:0 16px; border-radius:var(--radius-md); border:none; background:var(--brand); color:var(--on-brand); font-family:inherit; font-size:16px; font-weight:500; cursor:pointer;" style-hover="background:var(--brand-hover);">primary</button>
+          <button style="height:40px; padding:0 16px; border-radius:var(--radius-md); border:1px solid var(--border); background:var(--surface); color:var(--fg); font-family:inherit; font-size:16px; font-weight:500; cursor:pointer;" style-hover="background:var(--brand-subtle);">secondary</button>
+          <button style="height:40px; padding:0 16px; border-radius:var(--radius-md); border:none; background:transparent; color:var(--fg); font-family:inherit; font-size:16px; font-weight:500; cursor:pointer;" style-hover="background:var(--brand-subtle);">ghost</button>
+          <button disabled="{{ true }}" style="height:40px; padding:0 16px; border-radius:var(--radius-md); border:none; background:var(--brand); color:var(--on-brand); font-family:inherit; font-size:16px; font-weight:500; opacity:.5; pointer-events:none;">disabled</button>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <button style="height:32px; padding:0 12px; border-radius:var(--radius-md); border:none; background:var(--brand); color:var(--on-brand); font-family:inherit; font-size:14px; font-weight:500; cursor:pointer;">sm</button>
+          <button style="height:40px; padding:0 16px; border-radius:var(--radius-md); border:none; background:var(--brand); color:var(--on-brand); font-family:inherit; font-size:16px; font-weight:500; cursor:pointer;">md</button>
+          <button style="height:48px; padding:0 24px; border-radius:var(--radius-md); border:none; background:var(--brand); color:var(--on-brand); font-family:inherit; font-size:18px; font-weight:500; cursor:pointer;">lg</button>
+        </div>
+      </div>
+
+      <div style="border:1px solid var(--border); border-radius:var(--radius-lg); background:var(--surface); padding:24px; display:flex; flex-direction:column; gap:18px;">
+        <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--fg-muted);">Input</span>
+        <input placeholder="기본" style="height:40px; width:100%; box-sizing:border-box; border-radius:var(--radius-md); border:1px solid var(--border); background:var(--field-bg); padding:0 12px; font-family:inherit; font-size:16px; color:var(--fg); outline:none;" style-focus="border-color:var(--brand); box-shadow:0 0 0 3px color-mix(in srgb, var(--brand) 25%, transparent);">
+        <input value="포커스" readonly="{{ true }}" style="height:40px; width:100%; box-sizing:border-box; border-radius:var(--radius-md); border:1px solid var(--brand); box-shadow:0 0 0 3px color-mix(in srgb, var(--brand) 25%, transparent); background:var(--field-bg); padding:0 12px; font-family:inherit; font-size:16px; color:var(--fg); outline:none;">
+        <div style="display:flex; flex-direction:column; gap:6px;">
+          <input value="에러" readonly="{{ true }}" style="height:40px; width:100%; box-sizing:border-box; border-radius:var(--radius-md); border:1px solid var(--danger); background:var(--field-bg); padding:0 12px; font-family:inherit; font-size:16px; color:var(--fg); outline:none;">
+          <span style="font-size:12px; color:var(--danger);">필수 입력 항목입니다.</span>
+        </div>
+      </div>
+
+      <div style="border:1px solid var(--border); border-radius:var(--radius-lg); background:var(--surface); padding:24px; display:flex; flex-direction:column; gap:18px;">
+        <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--fg-muted);">Badge · ProgressBar</span>
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <span style="display:inline-flex; align-items:center; border-radius:9999px; padding:2px 10px; font-size:12px; font-weight:500; background:var(--surface); border:1px solid var(--border); color:var(--fg-body);">neutral</span>
+          <span style="display:inline-flex; align-items:center; border-radius:9999px; padding:2px 10px; font-size:12px; font-weight:500; background:var(--brand-subtle); color:var(--brand);">brand</span>
+          <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--fg-muted); border:1px dashed var(--border); border-radius:var(--radius-sm); padding:3px 8px;">[MISSING: Badge status variants]</span>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <div style="height:8px; width:100%; border-radius:9999px; background:var(--brand-subtle); overflow:hidden;"><div style="height:100%; width:12%; border-radius:9999px; background:var(--brand);"></div></div>
+          <div style="height:8px; width:100%; border-radius:9999px; background:var(--brand-subtle); overflow:hidden;"><div style="height:100%; width:56%; border-radius:9999px; background:var(--brand);"></div></div>
+          <div style="height:8px; width:100%; border-radius:9999px; background:var(--brand-subtle); overflow:hidden;"><div style="height:100%; width:100%; border-radius:9999px; background:var(--brand);"></div></div>
+        </div>
+      </div>
+
+      <div style="border:1px solid var(--border); border-radius:var(--radius-lg); background:var(--surface); padding:24px; display:flex; flex-direction:column; gap:18px;">
+        <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--fg-muted);">Typography · Modal</span>
+        <div style="display:flex; flex-direction:column; gap:6px;">
+          <span style="font-family:'Instrument Serif',Georgia,serif; font-size:36px; line-height:1.2; color:var(--fg);">Heading</span>
+          <span style="font-size:16px; line-height:1.7; color:var(--fg-body);">Text body — 본문 문단입니다.</span>
+          <span style="font-size:14px; color:var(--fg-muted);">Text muted — 보조 설명</span>
+          <span style="font-size:12px; color:var(--fg-muted);">Text small — 캡션</span>
+        </div>
+        <button onClick="{{ openDetail }}" style="height:40px; padding:0 16px; border-radius:var(--radius-md); border:1px solid var(--border); background:var(--surface); color:var(--fg); font-family:inherit; font-size:16px; font-weight:500; cursor:pointer; align-self:flex-start;" style-hover="background:var(--brand-subtle);">모달 열기</button>
+      </div>
+    </div>
+  </section>
+
+  <section style="max-width:1152px; margin:0 auto; padding:0 24px 96px;">
+    <div style="border-top:1px solid var(--border); padding-top:32px; display:grid; grid-template-columns:.8fr 1.2fr; gap:48px;">
+      <div>
+        <h2 style="font-family:'Instrument Serif',Georgia,serif; font-weight:400; font-size:28px; color:var(--fg); margin:0 0 8px;">구성 요소</h2>
+        <p style="font-size:14px; line-height:1.7; color:var(--fg-body); margin:0;">이 페이지의 모든 화면은 아래 10개로만 만들어졌다.</p>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:2px 32px;">
+        <sc-for list="{{ components }}" as="c" hint-placeholder-count="10">
+          <div style="display:flex; align-items:baseline; gap:12px; padding:12px 0; border-bottom:1px solid var(--border);">
+            <span style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--brand); width:96px; flex-shrink:0;">{{ c.name }}</span>
+            <span style="font-size:13px; line-height:1.6; color:var(--fg-body);">{{ c.desc }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <sc-if value="{{ modalOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeModal }}" style="position:fixed; inset:0; z-index:50; display:flex; align-items:center; justify-content:center; padding:16px; background:color-mix(in srgb, var(--bg) 70%, transparent); backdrop-filter:blur(4px); animation:usui-fade .2s ease both;">
+      <div onClick="{{ stop }}" style="width:100%; max-width:448px; border-radius:var(--radius-lg); border:1px solid var(--border); background:var(--surface); padding:24px; box-shadow:var(--shadow-lg); display:flex; flex-direction:column; gap:16px;">
+        <h2 style="font-size:18px; font-weight:600; color:var(--fg); margin:0;">{{ modalTitle }}</h2>
+        <p style="font-size:14px; line-height:1.7; color:var(--fg-body); margin:0;">이 항목을 처리하면 상태가 변경됩니다. 계속하시겠습니까?</p>
+        <div style="display:flex; gap:8px; border-top:1px solid var(--border); padding-top:16px;">
+          <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--fg-muted); border:1px dashed var(--border); border-radius:var(--radius-sm); padding:5px 8px;">[MISSING: Toast] 처리 결과 알림</span>
+        </div>
+        <div style="display:flex; justify-content:flex-end; gap:8px;">
+          <button onClick="{{ closeModal }}" style="height:40px; padding:0 16px; border-radius:var(--radius-md); border:1px solid var(--border); background:var(--surface); color:var(--fg); font-family:inherit; font-size:15px; font-weight:500; cursor:pointer;" style-hover="background:var(--brand-subtle);">취소</button>
+          <button onClick="{{ closeModal }}" style="height:40px; padding:0 16px; border-radius:var(--radius-md); border:none; background:var(--brand); color:var(--on-brand); font-family:inherit; font-size:15px; font-weight:500; cursor:pointer;" style-hover="background:var(--brand-hover);">확인</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;defaultTheme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;usetaehwan&quot;,&quot;orbit&quot;,&quot;gak&quot;],&quot;default&quot;:&quot;usetaehwan&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+const BADGE_NEUTRAL = "display:inline-flex;align-items:center;border-radius:9999px;padding:2px 10px;font-size:12px;font-weight:500;background:var(--surface);border:1px solid var(--border);color:var(--fg-body);white-space:nowrap";
+const BADGE_BRAND = "display:inline-flex;align-items:center;border-radius:9999px;padding:2px 10px;font-size:12px;font-weight:500;background:var(--brand-subtle);color:var(--brand);white-space:nowrap";
+
+const ITEMS = [
+  { title: "항목 A — 초안 검토", meta: "2일 전 · 담당 2명", status: "진행", brand: true },
+  { title: "항목 B — 자료 정리", meta: "5일 전 · 담당 1명", status: "대기", brand: false },
+  { title: "항목 C — 정기 점검", meta: "1주 전 · 담당 3명", status: "완료", brand: false },
+  { title: "항목 D — 설정 변경", meta: "1주 전 · 담당 1명", status: "진행", brand: true },
+];
+
+class Component extends DCLogic {
+  state = { theme: null, query: "", modalOpen: false, modalTitle: "항목 상세", copied: false };
+
+  get theme() { return this.state.theme ?? this.props.defaultTheme ?? "usetaehwan"; }
+
+  renderVals() {
+    const active = this.theme;
+    const themes = [
+      { id: "usetaehwan", label: "usetaehwan" },
+      { id: "orbit", label: "orbit" },
+      { id: "gak", label: "gak" },
+    ].map((t) => ({
+      label: t.label,
+      pick: () => this.setState({ theme: t.id }),
+      style:
+        "border:none;cursor:pointer;border-radius:9999px;padding:6px 14px;font-family:'JetBrains Mono',monospace;font-size:12px;transition:background .2s ease,color .2s ease;" +
+        (t.id === active
+          ? "background:var(--brand);color:var(--on-brand);"
+          : "background:transparent;color:var(--fg-muted);"),
+    }));
+
+    const q = this.state.query.trim();
+    const filtered = ITEMS.filter((it) => !q || it.title.includes(q)).map((it) => ({
+      title: it.title,
+      meta: it.meta,
+      status: it.status,
+      badgeStyle: it.brand ? BADGE_BRAND : BADGE_NEUTRAL,
+      open: () => this.setState({ modalOpen: true, modalTitle: it.title }),
+    }));
+
+    const metrics = [
+      { label: "총 항목", value: "1,284", delta: "+4.2%", note: "지난 기간 대비", brand: true },
+      { label: "처리 완료", value: "976", delta: "+1.8%", note: "누적", brand: true },
+      { label: "검토 대기", value: "42", delta: "-6건", note: "오늘 기준", brand: false },
+      { label: "평균 처리", value: "3.4일", delta: "동일", note: "최근 30일", brand: false },
+    ].map((m) => ({ ...m, badgeStyle: m.brand ? BADGE_BRAND : BADGE_NEUTRAL }));
+
+    const progress = [
+      { name: "작업 그룹 1", v: 82 },
+      { name: "작업 그룹 2", v: 64 },
+      { name: "작업 그룹 3", v: 38 },
+      { name: "작업 그룹 4", v: 12 },
+    ].map((p) => ({
+      name: p.name,
+      pct: p.v + "%",
+      barStyle: "height:100%;border-radius:9999px;background:var(--brand);transition:width .4s ease;width:" + p.v + "%",
+    }));
+
+    const components = [
+      { name: "Button", desc: "primary · secondary · ghost × sm · md · lg" },
+      { name: "Input", desc: "단일 필드. aria-invalid로 에러 상태 표현" },
+      { name: "Card", desc: "surface 표면 컨테이너. 안쪽은 조합으로 채운다" },
+      { name: "Badge", desc: "neutral · brand 두 종류의 상태 라벨" },
+      { name: "Typography", desc: "Heading(세리프) · Text(body·lead·muted·small)" },
+      { name: "Container", desc: "sm · md · lg 폭의 중앙 정렬 래퍼" },
+      { name: "Modal", desc: "포털 기반 중앙 모달. Esc·딤 클릭으로 닫힘" },
+      { name: "ProgressBar", desc: "0~100 진행도. ARIA progressbar" },
+      { name: "OrbitLoader", desc: "궤도형 로더. reduced-motion 시 정지" },
+      { name: "EmptyState", desc: "아이콘·제목·설명·액션의 빈 상태 안내" },
+    ];
+
+    return {
+      theme: active,
+      themes,
+      metrics,
+      progress,
+      filtered,
+      components,
+      query: this.state.query,
+      isEmptyResult: filtered.length === 0,
+      modalOpen: this.state.modalOpen,
+      modalTitle: this.state.modalTitle,
+      copyLabel: this.state.copied ? "복사됨" : "복사",
+      onQuery: (e) => this.setState({ query: e.target.value }),
+      openDetail: () => this.setState({ modalOpen: true, modalTitle: "항목 상세" }),
+      closeModal: () => this.setState({ modalOpen: false }),
+      stop: (e) => e.stopPropagation(),
+      copyInstall: () => {
+        try { navigator.clipboard.writeText("npm install @usetaehwan/ui"); } catch (e) {}
+        this.setState({ copied: true });
+        setTimeout(() => this.setState({ copied: false }), 1600);
+      },
+    };
+  }
+
+  componentDidMount() {
+    this._key = (e) => { if (e.key === "Escape") this.setState({ modalOpen: false }); };
+    document.addEventListener("keydown", this._key);
+  }
+  componentWillUnmount() { document.removeEventListener("keydown", this._key); }
+}
+</script>
+</body>
+</html>
